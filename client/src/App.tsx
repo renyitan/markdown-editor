@@ -7,6 +7,7 @@ import SlateElement from './components/SlateElement';
 import SlateLeaf from './components/SlateLeaf';
 import { HOTKEYS, initialValue } from './utils/Constants';
 import { toggleMark } from './utils/EditorUtils';
+import EditorToolBar from './components/EditorToolBar';
 
 type ParagraphElement = { type: 'paragraph'; children: CustomText[] };
 type CodeElement = { type: 'code'; children: CustomText[] };
@@ -43,6 +44,7 @@ const App = () => {
 
   return (
     <Slate editor={editor} value={initialValue}>
+      <EditorToolBar />
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
