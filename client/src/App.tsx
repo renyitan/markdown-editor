@@ -1,95 +1,64 @@
 import React, { useState, useCallback } from 'react';
-import {
-  createEditor,
-  BaseEditor,
-  Descendant,
-  Transforms,
-  Editor,
-} from 'slate';
-import {
-  Slate,
-  Editable,
-  withReact,
-  ReactEditor,
-  DefaultEditable,
-} from 'slate-react';
-import { Button, TextArea, Box } from '@fluentui/react-northstar';
+import { createEditor, BaseEditor } from 'slate';
+import { Slate, Editable, withReact, ReactEditor } from 'slate-react';
+import isHotKey from 'is-hotkey';
 
-type CustomElement = { type: any; children: CustomText[] };
-type CustomText = { text: string };
+import SlateElement from './components/SlateElement';
+import SlateLeaf from './components/SlateLeaf';
+import { HOTKEYS, initialValue } from './utils/Constants';
+import { toggleMark } from './utils/EditorUtils';
+
+type ParagraphElement = { type: 'paragraph'; children: CustomText[] };
+type CodeElement = { type: 'code'; children: CustomText[] };
+type CustomElement = ParagraphElement | CodeElement;
+type CustomText = { text: string; bold?: true };
+
+export type CustomEditor = BaseEditor & ReactEditor;
 
 declare module 'slate' {
   interface CustomTypes {
     Editor: BaseEditor & ReactEditor;
+    Element: ParagraphElement | CodeElement;
+    Text: CustomText;
+  }
+}
+
+declare module 'slate' {
+  interface CustomTypes {
+    Editor: CustomEditor;
     Element: CustomElement;
     Text: CustomText;
   }
 }
 
-const initialValue = [
-  {
-    type: 'paragraph',
-    children: [{ text: 'A line of text in a paragraph.' }],
-  },
-];
-
 const App = () => {
   const [editor] = useState(() => withReact(createEditor()));
 
-  // Define a rendering function based on the element passed to `props`. We use
-  // `useCallback` here to memoize the function for subsequent renders.
-  const renderElement = useCallback((props: any) => {
-    switch (props.element.type) {
-      case 'code':
-        return <CodeElement {...props} />;
-      default:
-        return <DefaultElement {...props} />;
-    }
-  }, []);
+  const renderElement = useCallback(
+    (props: any) => <SlateElement {...props} />,
+    []
+  );
 
-  const CustomTextArea = () => {
-    return (
-      <TextArea
-        as={Editable}
+  const renderLeaf = useCallback((props: any) => <SlateLeaf {...props} />, []);
+
+  return (
+    <Slate editor={editor} value={initialValue}>
+      <Editable
         renderElement={renderElement}
+        renderLeaf={renderLeaf}
+        autoFocus
         onKeyDown={(event: any) => {
-          if (event.key === '&') {
-            event.preventDefault();
-            // Determine whether any of the currently selected blocks are code blocks.
-            const [match]: any = Editor.nodes(editor, {
-              match: (n: any) => n.type === 'code',
-            });
-            // Toggle the block type depending on whether there's already a match.
-            Transforms.setNodes(
-              editor,
-              { type: match ? 'paragraph' : 'code' },
-              { match: (n) => Editor.isBlock(editor, n) }
-            );
+          for (const hotkey in HOTKEYS) {
+            if (isHotKey(hotkey, event as any)) {
+              event.preventDefault();
+              const mark = HOTKEYS[hotkey];
+              toggleMark(editor, mark);
+            }
           }
         }}
       />
-    );
-  };
-
-  return (
-    <>
-      <Slate editor={editor} value={initialValue}>
-        <CustomTextArea />
-      </Slate>
-    </>
+    </Slate>
   );
-};
-
-const CodeElement = (props: any) => {
-  return (
-    <pre {...props.attributes}>
-      <code>{props.children}</code>
-    </pre>
-  );
-};
-
-const DefaultElement = (props: any) => {
-  return <p {...props.attributes}>{props.children}</p>;
 };
 
 export default App;
