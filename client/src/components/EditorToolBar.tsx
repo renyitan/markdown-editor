@@ -54,7 +54,11 @@ const EditorToolBar = () => {
           kind: 'toggle',
           active: state.italic,
           title: 'Toggle italic',
-          onClick: () => dispatch('italic'),
+          onClick: (event) => {
+            dispatch('italic');
+            toggleMark(editor, 'italic');
+            ReactEditor.focus(editor);
+          },
         },
         {
           icon: <UnderlineIcon {...{ outline: true }} />,
@@ -62,7 +66,11 @@ const EditorToolBar = () => {
           kind: 'toggle',
           active: state.underline,
           title: 'Toggle underline',
-          onClick: () => dispatch('underline'),
+          onClick: (event) => {
+            dispatch('underline');
+            toggleMark(editor, 'underline');
+            ReactEditor.focus(editor);
+          },
         },
         // { key: 'divider-1', kind: 'divider' },
         // {
