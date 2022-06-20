@@ -5,7 +5,10 @@ const SlateElement = ({ attributes, children, element }: any) => {
   switch (element.type) {
     case 'block-quote':
       return (
-        <blockquote style={style} {...attributes}>
+        <blockquote
+          style={{ borderLeft: "solid", borderLeftWidth: "2",  borderLeftColor: "#ddd", marginLeft: 0, marginRight: 0, paddingLeft: 10, color: "#aaa" }}
+          {...attributes}
+        >
           {children}
         </blockquote>
       );
