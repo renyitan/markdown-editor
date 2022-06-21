@@ -2,7 +2,7 @@ import { Flex, Segment } from '@fluentui/react-northstar';
 import ReactMarkdown from 'react-markdown';
 import Markdown from 'marked-react';
 
-import Editor from './Editor';
+import Editor from './MarkdownEditor';
 
 const App = () => {
   return (
@@ -10,7 +10,7 @@ const App = () => {
       gap="gap.small"
       padding="padding.medium"
       style={{
-        minHeight: 200,
+        minHeight: 500,
       }}
     >
       <Flex.Item size="size.half">

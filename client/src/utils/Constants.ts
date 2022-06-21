@@ -1,9 +1,10 @@
 import { Descendant } from 'slate';
 
-export const FONT_STYLES = {
+export const ANNOTATIONS = {
   BOLD: 'bold',
   ITALIC: 'italic',
   UNDERLINE: 'underline',
+  STRIKE: 'strike',
   CODE: 'code',
 };
 
@@ -12,9 +13,9 @@ export interface IHotKeys {
 }
 
 export const HOTKEYS: IHotKeys = {
-  'mod+b': FONT_STYLES.BOLD,
-  'mod+i': FONT_STYLES.ITALIC,
-  'mod+`': FONT_STYLES.CODE,
+  'mod+b': ANNOTATIONS.BOLD,
+  'mod+i': ANNOTATIONS.ITALIC,
+  'mod+`': ANNOTATIONS.CODE,
 };
 
 export const initialValue: Descendant[] = [

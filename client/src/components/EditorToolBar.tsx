@@ -1,5 +1,4 @@
 import { Toolbar } from '@fluentui/react-northstar';
-import * as React from 'react';
 import { useSlate, ReactEditor } from 'slate-react';
 import {
   BoldIcon,
@@ -13,23 +12,12 @@ import {
   LinkIcon,
   CodeSnippetIcon,
   QuoteIcon,
+  StrikeIcon,
 } from '@fluentui/react-icons-northstar';
 
-import { toggleMark, insertMarkdownAnnotations } from '../utils/EditorUtils';
-
-const stateReducer: React.Reducer<
-  { bold: boolean; italic: boolean; underline: boolean; more: boolean },
-  'bold' | 'italic' | 'underline' | 'more'
-> = (prevState, action) => ({ ...prevState, [action]: !prevState[action] });
+import { insertMarkdownAnnotations } from '../utils/EditorUtils';
 
 const EditorToolBar = () => {
-  const [state, dispatch] = React.useReducer(stateReducer, {
-    bold: false,
-    italic: false,
-    more: false,
-    underline: false,
-  });
-
   const editor = useSlate();
 
   return (
@@ -39,8 +27,6 @@ const EditorToolBar = () => {
         {
           icon: <BoldIcon {...{ outline: true }} />,
           key: 'bold',
-          kind: 'toggle',
-          active: state.bold,
           title: 'Toggle bold',
           onClick: () => {
             insertMarkdownAnnotations(editor, 'bold');
@@ -51,10 +37,18 @@ const EditorToolBar = () => {
           icon: <ItalicIcon {...{ outline: true }} />,
           key: 'italic',
           kind: 'toggle',
-          active: state.italic,
           title: 'Toggle italic',
           onClick: (event) => {
             insertMarkdownAnnotations(editor, 'italic');
+            ReactEditor.focus(editor);
+          },
+        },
+        {
+          icon: <StrikeIcon {...{ outline: true }} />,
+          key: 'strike',
+          title: 'Toggle strike',
+          onClick: (event) => {
+            insertMarkdownAnnotations(editor, 'strike');
             ReactEditor.focus(editor);
           },
         },
