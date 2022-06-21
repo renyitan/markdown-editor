@@ -1,19 +1,25 @@
 import { Descendant } from 'slate';
 
+export const FONT_STYLES = {
+  BOLD: 'bold',
+  ITALIC: 'italic',
+  UNDERLINE: 'underline',
+  CODE: 'code',
+};
+
 export interface IHotKeys {
   [key: string]: string;
 }
 
 export const HOTKEYS: IHotKeys = {
-  'mod+b': 'bold',
-  'mod+i': 'italic',
-  'mod+u': 'underline',
-  'mod+`': 'code',
+  'mod+b': FONT_STYLES.BOLD,
+  'mod+i': FONT_STYLES.ITALIC,
+  'mod+`': FONT_STYLES.CODE,
 };
 
 export const initialValue: Descendant[] = [
   {
     type: 'paragraph',
-    children: [{ text: 'A line of text in a paragraph.' }],
+    children: [{ text: '' }],
   },
 ];

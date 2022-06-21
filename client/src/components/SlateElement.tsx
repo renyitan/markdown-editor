@@ -6,12 +6,22 @@ const SlateElement = ({ attributes, children, element }: any) => {
     case 'block-quote':
       return (
         <blockquote
-          style={{ borderLeft: "solid", borderLeftWidth: "2",  borderLeftColor: "#ddd", marginLeft: 0, marginRight: 0, paddingLeft: 10, color: "#aaa" }}
+          style={{
+            borderLeft: 'solid',
+            borderLeftWidth: '2',
+            borderLeftColor: '#ddd',
+            marginLeft: 0,
+            marginRight: 0,
+            paddingLeft: 10,
+            color: '#aaa',
+          }}
           {...attributes}
         >
           {children}
         </blockquote>
       );
+    case 'bold':
+      return <strong {...attributes}>{children}</strong>;
     default:
       return (
         <p style={style} {...attributes}>

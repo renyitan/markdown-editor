@@ -15,7 +15,7 @@ import {
   QuoteIcon,
 } from '@fluentui/react-icons-northstar';
 
-import { toggleMark } from '../utils/EditorUtils';
+import { toggleMark, insertMarkdownAnnotations } from '../utils/EditorUtils';
 
 const stateReducer: React.Reducer<
   { bold: boolean; italic: boolean; underline: boolean; more: boolean },
@@ -42,9 +42,8 @@ const EditorToolBar = () => {
           kind: 'toggle',
           active: state.bold,
           title: 'Toggle bold',
-          onClick: (event) => {
-            dispatch('bold');
-            toggleMark(editor, 'bold');
+          onClick: () => {
+            insertMarkdownAnnotations(editor, 'bold');
             ReactEditor.focus(editor);
           },
         },
@@ -55,23 +54,22 @@ const EditorToolBar = () => {
           active: state.italic,
           title: 'Toggle italic',
           onClick: (event) => {
-            dispatch('italic');
-            toggleMark(editor, 'italic');
+            insertMarkdownAnnotations(editor, 'italic');
             ReactEditor.focus(editor);
           },
         },
-        {
-          icon: <UnderlineIcon {...{ outline: true }} />,
-          key: 'underline',
-          kind: 'toggle',
-          active: state.underline,
-          title: 'Toggle underline',
-          onClick: (event) => {
-            dispatch('underline');
-            toggleMark(editor, 'underline');
-            ReactEditor.focus(editor);
-          },
-        },
+        // {
+        //   icon: <UnderlineIcon {...{ outline: true }} />,
+        //   key: 'underline',
+        //   kind: 'toggle',
+        //   active: state.underline,
+        //   title: 'Toggle underline',
+        //   onClick: (event) => {
+        //     dispatch('underline');
+        //     toggleMark(editor, 'underline');
+        //     ReactEditor.focus(editor);
+        //   },
+        // },
         // { key: 'divider-1', kind: 'divider' },
         // {
         //   icon: <FontSizeIcon {...{ outline: true }} />,
