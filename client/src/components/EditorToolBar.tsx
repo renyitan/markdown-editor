@@ -38,7 +38,7 @@ const EditorToolBar = () => {
           key: 'italic',
           kind: 'toggle',
           title: 'Toggle italic',
-          onClick: (event) => {
+          onClick: () => {
             insertMarkdownAnnotations(editor, 'italic');
             ReactEditor.focus(editor);
           },
@@ -47,7 +47,7 @@ const EditorToolBar = () => {
           icon: <StrikeIcon {...{ outline: true }} />,
           key: 'strike',
           title: 'Toggle strike',
-          onClick: (event) => {
+          onClick: () => {
             insertMarkdownAnnotations(editor, 'strike');
             ReactEditor.focus(editor);
           },

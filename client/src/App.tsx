@@ -1,26 +1,26 @@
-import { Flex, Segment } from '@fluentui/react-northstar';
-import Markdown from 'marked-react';
+import { Flex, Segment, Text, Divider } from '@fluentui/react-northstar';
 
-import Editor from './MarkdownEditor';
+import MarkdownEditor from './components/MarkdownEditor';
+import MarkdownRenderer from './components/MarkdownRenderer';
 
 const App = () => {
   return (
     <Flex
       gap="gap.small"
       padding="padding.medium"
-      style={{
-        minHeight: 500,
-      }}
+      style={{ minHeight: 500, maxWidth: '100%' }}
     >
       <Flex.Item size="size.half">
         <Segment>
-          <Editor />
+          <MarkdownEditor />
         </Segment>
       </Flex.Item>
 
       <Flex.Item size="size.half">
         <Segment>
-          <Markdown>## Hello</Markdown>
+          <Text content="Preview" size="larger" weight="semibold" />
+          <Divider />
+          <MarkdownRenderer />
         </Segment>
       </Flex.Item>
     </Flex>

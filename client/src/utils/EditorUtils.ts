@@ -6,7 +6,7 @@ import { ANNOTATIONS } from './Constants';
 export const insertMarkdownAnnotations = (
   editor: BaseEditor & ReactEditor,
   annotationType: any
-) => {
+): void => {
   let moveLeft = 0;
   switch (annotationType) {
     case ANNOTATIONS.BOLD:
