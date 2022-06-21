@@ -1,4 +1,4 @@
-import { BaseEditor, Transforms } from 'slate';
+import { BaseEditor, Transforms, Editor } from 'slate';
 import { ReactEditor } from 'slate-react';
 
 import { ANNOTATIONS } from './Constants';
@@ -8,9 +8,10 @@ export const insertMarkdownAnnotations = (
   annotationType: any
 ): void => {
   let moveLeft = 0;
+
   switch (annotationType) {
     case ANNOTATIONS.BOLD:
-      editor.insertText('****');
+      editor.insertText(`****`);
       moveLeft = -2;
       break;
     case ANNOTATIONS.ITALIC:
@@ -28,7 +29,6 @@ export const insertMarkdownAnnotations = (
     default:
       break;
   }
-
   const selection = editor?.selection ?? null;
   const currentOffSet = selection?.anchor.offset || 0;
   const path = selection?.anchor?.path || [0, 0];
