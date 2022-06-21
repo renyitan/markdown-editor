@@ -1,7 +1,10 @@
 import { Flex, Segment } from '@fluentui/react-northstar';
+import ReactMarkdown from 'react-markdown';
 import Editor from './Editor';
 
 const App = () => {
+  
+
   return (
     <Flex
       gap="gap.small"
@@ -17,7 +20,10 @@ const App = () => {
       </Flex.Item>
 
       <Flex.Item size="size.half">
-        <Segment content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum mollis velit non gravida venenatis. Praesent consequat lectus purus, ut scelerisque velit condimentum eu. Maecenas sagittis ante ut turpis varius interdum. Quisque tellus ipsum, eleifend non ipsum id, suscipit ultricies neque." />
+        <Segment>
+          Lorep ipsum
+          {/* <ReactMarkdown children={markdown} /> */}
+        </Segment>
       </Flex.Item>
     </Flex>
   );

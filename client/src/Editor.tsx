@@ -1,6 +1,6 @@
 // @refresh reset
 import React, { useState, useMemo, useCallback } from 'react';
-import { createEditor, BaseEditor } from 'slate';
+import { createEditor, BaseEditor, Node } from 'slate';
 import isHotKey from 'is-hotkey';
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react';
 
@@ -10,7 +10,7 @@ import { initialValue, HOTKEYS } from './utils/Constants';
 import { insertMarkdownAnnotations } from './utils/EditorUtils';
 import EditorToolBar from './components/EditorToolBar';
 
-import { Divider } from '@fluentui/react-northstar';
+import { Divider, Button } from '@fluentui/react-northstar';
 
 type ParagraphElement = { type: 'paragraph'; children: CustomText[] };
 type CodeElement = { type: 'code'; children: CustomText[] };
@@ -33,10 +33,13 @@ const EditorArea = () => {
   const renderElement = useCallback(
     (props: any) => <SlateElement {...props} />,
     []
-  ); 
-  
+  );
 
   const renderLeaf = useCallback((props: any) => <SlateLeaf {...props} />, []);
+
+  const outputHTML = (nodes: any[]) => {
+    console.log(nodes.map((n: any) => Node.string(n)).join('\n'));
+  };
 
   return (
     <Slate editor={editor} value={initialValue}>
@@ -45,7 +48,7 @@ const EditorArea = () => {
         <Divider />
         <Editable
           renderElement={renderElement}
-          renderLeaf={renderLeaf} 
+          renderLeaf={renderLeaf}
           autoFocus
           onKeyDown={(event: any) => {
             for (const hotkey in HOTKEYS) {
@@ -55,7 +58,12 @@ const EditorArea = () => {
                 insertMarkdownAnnotations(editor, annotationType);
               }
             }
-          }} 
+          }}
+        />
+        <Button
+          primary
+          content="hi"
+          onClick={() => outputHTML(editor.children)}
         />
       </>
     </Slate>

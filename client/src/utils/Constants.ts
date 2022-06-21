@@ -20,6 +20,6 @@ export const HOTKEYS: IHotKeys = {
 export const initialValue: Descendant[] = [
   {
     type: 'paragraph',
-    children: [{ text: '' }],
+    children: [{ text: '## Hello' }],
   },
 ];
