@@ -3,6 +3,9 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { createEditor, BaseEditor, Node } from 'slate';
 import isHotKey from 'is-hotkey';
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react';
+import { Flex, Segment } from '@fluentui/react-northstar';
+import ReactMarkdown from 'react-markdown';
+import Markdown from 'marked-react';
 
 import SlateElement from './components/SlateElement';
 import SlateLeaf from './components/SlateLeaf';
@@ -27,8 +30,9 @@ declare module 'slate' {
   }
 }
 
-const EditorArea = () => {
+const App = () => {
   const editor = useMemo(() => withReact(createEditor()), []);
+  const [content, setContent] = useState('');
 
   const renderElement = useCallback(
     (props: any) => <SlateElement {...props} />,
@@ -37,37 +41,50 @@ const EditorArea = () => {
 
   const renderLeaf = useCallback((props: any) => <SlateLeaf {...props} />, []);
 
-  const outputHTML = (nodes: any[]) => {
-    console.log(nodes.map((n: any) => Node.string(n)).join('\n'));
+  const outputString = (nodes: any[]) => {
+    const content = nodes.map((n: any) => Node.string(n)).join('\n');
+    setContent(content);
   };
 
   return (
-    <Slate editor={editor} value={initialValue}>
-      <>
-        <EditorToolBar />
-        <Divider />
-        <Editable
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          autoFocus
-          onKeyDown={(event: any) => {
-            for (const hotkey in HOTKEYS) {
-              if (isHotKey(hotkey, event as any)) {
-                event.preventDefault();
-                const annotationType = HOTKEYS[hotkey];
-                insertMarkdownAnnotations(editor, annotationType);
-              }
-            }
-          }}
-        />
-        <Button
-          primary
-          content="hi"
-          onClick={() => outputHTML(editor.children)}
-        />
-      </>
-    </Slate>
+    <Flex gap="gap.small" padding="padding.medium" style={{ minHeight: 200 }}>
+      <Flex.Item size="size.half">
+        <Segment>
+          <Slate
+            editor={editor}
+            value={initialValue}
+            onChange={() => outputString(editor.children)}
+          >
+            <>
+              <EditorToolBar />
+              <Divider />
+              <Editable
+                renderElement={renderElement}
+                renderLeaf={renderLeaf}
+                autoFocus
+                onKeyDown={(event: any) => {
+                  for (const hotkey in HOTKEYS) {
+                    if (isHotKey(hotkey, event as any)) {
+                      event.preventDefault();
+                      const annotationType = HOTKEYS[hotkey];
+                      insertMarkdownAnnotations(editor, annotationType);
+                    }
+                  }
+                }}
+              />
+            </>
+          </Slate>
+        </Segment>
+      </Flex.Item>
+
+      <Flex.Item size="size.half">
+        <Segment>
+          <Divider />
+          <Markdown>{content}</Markdown>
+        </Segment>
+      </Flex.Item>
+    </Flex>
   );
 };
 
-export default EditorArea;
+export default App;
