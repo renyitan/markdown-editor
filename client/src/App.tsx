@@ -1,5 +1,4 @@
 import { Flex, Segment } from '@fluentui/react-northstar';
-import ReactMarkdown from 'react-markdown';
 import Markdown from 'marked-react';
 
 import Editor from './MarkdownEditor';

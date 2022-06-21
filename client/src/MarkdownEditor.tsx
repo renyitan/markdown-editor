@@ -1,5 +1,6 @@
 // @refresh reset
 import React, { useState, useMemo, useCallback } from 'react';
+import { marked } from 'marked';
 import {
   Flex,
   Segment,
@@ -10,7 +11,6 @@ import {
 import { createEditor, BaseEditor, Node } from 'slate';
 import isHotKey from 'is-hotkey';
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react';
-import Markdown from 'marked-react';
 
 import { initialValue, HOTKEYS } from './utils/Constants';
 import { insertMarkdownAnnotations } from './utils/EditorUtils';
@@ -40,8 +40,18 @@ const MarkdownEditor = () => {
     setContent(content);
   };
 
+  marked.setOptions({
+    breaks: true,
+    gfm: true,
+  });
+  const html: string = marked.parse(content);
+
   return (
-    <Flex gap="gap.small" padding="padding.medium" style={{ minHeight: 500 }}>
+    <Flex
+      gap="gap.small"
+      padding="padding.medium"
+      style={{ minHeight: 500, maxWidth: '100%' }}
+    >
       <Flex.Item size="size.half">
         <Segment>
           <Slate
@@ -53,6 +63,7 @@ const MarkdownEditor = () => {
             <Divider />
 
             <Editable
+              style={{ height: '100%' }}
               autoFocus
               onKeyDown={(event: any) => {
                 for (const hotkey in HOTKEYS) {
@@ -72,7 +83,10 @@ const MarkdownEditor = () => {
         <Segment>
           <Text content="Preview" size="larger" weight="semibold" />
           <Divider />
-          <Markdown breaks >{content}</Markdown>
+          <div id="content" dangerouslySetInnerHTML={{ __html: html }} />
+          {/* <Markdown gfm breaks>
+            {content}
+          </Markdown> */}
         </Segment>
       </Flex.Item>
     </Flex>
