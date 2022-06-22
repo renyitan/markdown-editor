@@ -1,4 +1,8 @@
-![image](https://user-images.githubusercontent.com/46935364/174969171-0dd0b929-19da-428d-8480-bc5e13d4be49.png)
+## Simple Markdown Editor
+
+<kbd>
+  <img src="https://user-images.githubusercontent.com/46935364/174969171-0dd0b929-19da-428d-8480-bc5e13d4be49.png" />
+  </kbd>
 
 ---
 
