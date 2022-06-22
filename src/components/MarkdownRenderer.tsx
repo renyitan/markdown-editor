@@ -10,9 +10,17 @@ const MarkdownRenderer = () => {
     gfm: true,
   });
 
+  console.log(JSON.stringify(content));
+
   const html: string = marked.parse(content);
 
-  return <div id="content" dangerouslySetInnerHTML={{ __html: html }} />;
+  return (
+    <div
+      style={{ height: '100%', maxWidth: '100%' }}
+      id="content"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
 };
 
 export default MarkdownRenderer;
