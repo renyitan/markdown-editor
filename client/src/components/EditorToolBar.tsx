@@ -15,6 +15,7 @@ import {
   StrikeIcon,
 } from '@fluentui/react-icons-northstar';
 
+import { ANNOTATIONS } from '../utils/Constants';
 import { insertMarkdownAnnotations } from '../utils/EditorUtils';
 
 const EditorToolBar = () => {
@@ -26,45 +27,42 @@ const EditorToolBar = () => {
       items={[
         {
           icon: <BoldIcon {...{ outline: true }} />,
-          key: 'bold',
+          key: ANNOTATIONS.BOLD,
           title: 'Toggle bold',
           onClick: () => {
-            insertMarkdownAnnotations(editor, 'bold');
+            insertMarkdownAnnotations(editor, ANNOTATIONS.BOLD);
             ReactEditor.focus(editor);
           },
         },
         {
           icon: <ItalicIcon {...{ outline: true }} />,
-          key: 'italic',
-          kind: 'toggle',
+          key: ANNOTATIONS.ITALIC,
           title: 'Toggle italic',
           onClick: () => {
-            insertMarkdownAnnotations(editor, 'italic');
+            insertMarkdownAnnotations(editor, ANNOTATIONS.ITALIC);
+            ReactEditor.focus(editor);
+          },
+        },
+        {
+          icon: <UnderlineIcon {...{ outline: true }} />,
+          key: ANNOTATIONS.UNDERLINE,
+          title: 'Toggle underline',
+          onClick: (event) => {
+            insertMarkdownAnnotations(editor, ANNOTATIONS.UNDERLINE);
             ReactEditor.focus(editor);
           },
         },
         {
           icon: <StrikeIcon {...{ outline: true }} />,
-          key: 'strike',
+          key: ANNOTATIONS.STRIKE,
           title: 'Toggle strike',
           onClick: () => {
-            insertMarkdownAnnotations(editor, 'strike');
+            insertMarkdownAnnotations(editor, ANNOTATIONS.STRIKE);
             ReactEditor.focus(editor);
           },
         },
-        // {
-        //   icon: <UnderlineIcon {...{ outline: true }} />,
-        //   key: 'underline',
-        //   kind: 'toggle',
-        //   active: state.underline,
-        //   title: 'Toggle underline',
-        //   onClick: (event) => {
-        //     dispatch('underline');
-        //     toggleMark(editor, 'underline');
-        //     ReactEditor.focus(editor);
-        //   },
-        // },
-        // { key: 'divider-1', kind: 'divider' },
+
+        { key: 'divider-1', kind: 'divider' },
         // {
         //   icon: <FontSizeIcon {...{ outline: true }} />,
         //   key: 'font-size',

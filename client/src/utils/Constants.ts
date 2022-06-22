@@ -16,6 +16,7 @@ export const HOTKEYS: IHotKeys = {
   'mod+b': ANNOTATIONS.BOLD,
   'mod+i': ANNOTATIONS.ITALIC,
   'mod+`': ANNOTATIONS.CODE,
+  'mod+u': ANNOTATIONS.UNDERLINE,
 };
 
 export const initialValue: Descendant[] = [

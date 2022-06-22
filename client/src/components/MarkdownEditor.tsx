@@ -8,7 +8,7 @@ import isHotKey from 'is-hotkey';
 import { initialValue, HOTKEYS } from '../utils/Constants';
 import { insertMarkdownAnnotations } from '../utils/EditorUtils';
 import { StateContext } from '../context/State';
-import EditorToolBar from './EditorToolbar';
+import EditorToolBar from './EditorToolBar';
 
 type ParagraphElement = { type: 'paragraph'; children: CustomText[] };
 type CodeElement = { type: 'code'; children: CustomText[] };

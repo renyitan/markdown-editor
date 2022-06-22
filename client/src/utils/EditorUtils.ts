@@ -9,22 +9,29 @@ export const insertMarkdownAnnotations = (
 ): void => {
   let moveLeft = 0;
 
+  let selectedText = editor.selection
+    ? Editor.string(editor, editor.selection)
+    : '';
   switch (annotationType) {
     case ANNOTATIONS.BOLD:
-      editor.insertText(`****`);
+      editor.insertText(`**${selectedText}**`);
       moveLeft = -2;
       break;
     case ANNOTATIONS.ITALIC:
-      editor.insertText('__');
+      editor.insertText(`_${selectedText}_`);
       moveLeft = -1;
       break;
     case ANNOTATIONS.CODE:
-      editor.insertText('``');
+      editor.insertText(`\`${selectedText}\``);
       moveLeft = -1;
       break;
     case ANNOTATIONS.STRIKE:
-      editor.insertText('~~');
+      editor.insertText(`~${selectedText}~`);
       moveLeft = -1;
+      break;
+    case ANNOTATIONS.UNDERLINE:
+      editor.insertText(`<u>${selectedText}</u>`);
+      moveLeft = -4;
       break;
     default:
       break;
