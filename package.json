@@ -4,6 +4,7 @@
   "private": true,
   "hompeage": "http://renyitan.github.io/markdown-editor",
   "dependencies": {
+    "@fluentui/react-icons-northstar": "^0.63.1",
     "@fluentui/react-northstar": "^0.63.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
