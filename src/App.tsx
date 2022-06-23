@@ -11,13 +11,13 @@ const App = () => {
       style={{ minHeight: 500, maxWidth: '100%' }}
     >
       <Flex.Item size="size.half">
-        <Segment>
+        <Segment style={{ maxWidth: '50%' }}>
           <MarkdownEditor />
         </Segment>
       </Flex.Item>
 
       <Flex.Item size="size.half">
-        <Segment>
+        <Segment style={{ maxWidth: '50%' }}>
           <Text content="Preview" size="larger" weight="semibold" />
           <Divider />
           <MarkdownRenderer />

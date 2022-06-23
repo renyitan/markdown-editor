@@ -11,6 +11,7 @@
     "@types/node": "^16.11.41",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "highlight.js": "^11.5.1",
     "marked": "^4.0.17",
     "marked-react": "^1.1.2",
     "react": "^18.2.0",
